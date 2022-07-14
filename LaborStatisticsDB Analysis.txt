@@ -1,0 +1,70 @@
+dbo.annual_2016
+id - interger - PrimaryKey
+series_id - varchar
+year - interger
+period - varchar
+value - float
+footnote_codes - varchar
+original_file - varchar
+annual_2016 table can be connected with Series table based on common key series_id and can be connected with footnote table based on footnote_code and period table based on period field
+
+dbo.datatype
+data_type_code - interger - PrimaryKey
+data_type_text - varchar
+datatype table can be connected with series table based on data_type_code
+
+dbo.footnote
+footnote_code - varchar
+footnote_text - varchar
+footnote tabke can be connecte dwith annual_2016 and january_2017 based on footnote_code.
+
+dbo.industry
+id - interger - PrimaryKey
+industry_code - interger
+naics_code - varchar
+publishing_status - varchar
+industry_name - varchar
+display_level - float
+selectable - varchar
+sort_sequence - float
+industry table can be connected with seriestable based on industry_code.
+
+dbo.january_2017
+id
+series_id
+year
+period
+value
+footnote_codes
+original_file
+january_2017 table can be connected with Series table based on common key series_id  and can be connected with footnote table based on footnote_code and period table based on period field
+
+dbo.[period]
+period_code - varchar
+month_abbr - varchar
+month - varchar
+
+dbo.[seasonal]
+industry_code - varchar
+seasonal_text - varchar
+seasonal table can be connected with industry table based on industry_code and can be connected with series table based on industry_code
+
+dbo.[series]
+series_id - varchar
+supersector_code - interger
+industry_code - varchar
+data_type_code - interger
+seasonal - varchar
+series_title - varchar
+
+series table can be connected with annual_2016 and january_2017 based on series_id and connects with industry table based on industry_code and connects with datatype table based on data_type_code and can be connected with supersectortable based on supersector_code and can be connected with seasonaltable based on industry_code
+
+dbo.supersector
+supersector_code - interger
+supersector_name - varchar
+supersectortable can be connected with series table based on supersector_code.
+
+What is the datatype for women employees?
+SELECT data_type_code, data_type_text from LaborStatisticsDB.dbo.datatype where data_type_code in (
+SELECT distinct data_type_code from LaborStatisticsDB.dbo.series where series_title = 'Women employees')
+data_type_code is 10 and data_type_text is WOMEN EMPLOYEES
